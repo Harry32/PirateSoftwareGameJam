@@ -14,6 +14,16 @@ config/name="PirateSoftwareGameJam"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[file_customization]
+
+folder_colors={
+"res://graphics/": "purple",
+"res://scenes/": "blue",
+"res://scripts/": "green",
+"res://shaders/": "pink",
+"res://sounds/": "red"
+}
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
