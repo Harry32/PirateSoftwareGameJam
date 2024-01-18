@@ -16,14 +16,6 @@ func _ready():
 
 
 func _physics_process(_delta):
-		#if walking:
-			#rotation = move_toward(rotation, deg_to_rad(newAngle), 0.01)
-		#else:
-			#rotation = move_toward(rotation, deg_to_rad(newAngle), 0.0018)
-		
-		#if abs(abs(rotation) - abs(deg_to_rad(newAngle))) <= 0.000001:
-			#newAngle = -newAngle
-	
 	if effect == "Permanent":
 		$Label.text = "Permanente"
 	if effect == "Temporary":
