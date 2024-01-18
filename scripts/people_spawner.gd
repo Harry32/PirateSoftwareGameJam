@@ -28,3 +28,4 @@ func _ready():
 		personInstance.walkableY1 = y1
 
 		$"..".call_deferred("add_child", personInstance)
+		ProgressInformation.add_counter("TotalPeople")

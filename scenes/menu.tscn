@@ -44,15 +44,31 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/margin_left = 20
 
-[node name="TotalContainer" type="HBoxContainer" parent="Panel/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="TotalPeopleContainer" type="HBoxContainer" parent="Panel/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="TotalTextLabel" type="Label" parent="Panel/PanelContainer/VBoxContainer/MarginContainer/TotalContainer"]
+[node name="TotalPeopleTextLabel" type="Label" parent="Panel/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/TotalPeopleContainer"]
+layout_mode = 2
+text = "Total Pessoas"
+
+[node name="TotalPeopleValueLabel" type="Label" parent="Panel/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/TotalPeopleContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="TotalContainer" type="HBoxContainer" parent="Panel/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TotalTextLabel" type="Label" parent="Panel/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/TotalContainer"]
 layout_mode = 2
 text = "Total convertidos:
 "
 
-[node name="TotalValueLabel" type="Label" parent="Panel/PanelContainer/VBoxContainer/MarginContainer/TotalContainer"]
+[node name="TotalValueLabel" type="Label" parent="Panel/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/TotalContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"

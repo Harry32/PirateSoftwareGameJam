@@ -10,6 +10,7 @@ func _ready():
 	%ClickValueLabel.text = str(clickCost)
 	%ActionValueLabel.text = str(actionCost)
 	%AreaValueLabel.text = str(areaCost)
+	%TotalPeopleValueLabel.text = str(ProgressInformation.get_counter("TotalPeople"))
 	%TotalValueLabel.text = str(ProgressInformation.get_counter("Total"))
 	%PointValueLabel.text = str(ProgressInformation.get_counter("Points"))
 
@@ -53,8 +54,10 @@ func _on_action_button_pressed():
 func _on_area_button_pressed():
 	ProgressInformation.add_counter("Points", -areaCost)
 	var areaCooldown = StatsInformation.get_stats("Area")
-	var areaImageCooldown = StatsInformation.get_stats("AreaImage")
+	var particlesLifetime = StatsInformation.get_stats("ParticleLifetime")
+	var particlesIV = StatsInformation.get_stats("ParticleIV")
 	StatsInformation.set_stats("Area", areaCooldown*1.1)
-	StatsInformation.set_stats("AreaImage", areaImageCooldown*1.1)
+	StatsInformation.set_stats("ParticleLifetime", particlesLifetime*1.1)
+	StatsInformation.set_stats("ParticleIV", particlesIV*1.1)
 	areaCost *= 2
 	%AreaValueLabel.text = str(areaCost)

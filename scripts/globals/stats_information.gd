@@ -4,7 +4,7 @@ signal activate_cooldown(targetName: String)
 signal change_stats(targetName: String, value: float)
 
 var cooldowns = { "Click": 0.0 }
-var stats = { "Click": 15, "Area": 15.0, "AreaImage": 5, "Effect": 10.0 }
+var stats = { "Click": 15, "Area": 15.0, "ParticleLifetime": 0.9, "ParticleIV": 150, "Effect": 10.0 }
 
 
 func set_cooldown(cooldownName: String, value: float):

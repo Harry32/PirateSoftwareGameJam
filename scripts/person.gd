@@ -17,6 +17,7 @@ var walkableY1: float
 func _ready():
 	direction = Vector2.ZERO
 	targetPosition = position
+	StatsInformation.connect("change_stats",update_stats)
 	$Timer.wait_time = rng.randf_range(0, 5)
 	$Timer.start()
 
@@ -87,9 +88,12 @@ func update_stats(statsName: String, value: float):
 		if $Area2D/CollisionShape2D.scale != newScale:
 			$Area2D/CollisionShape2D.scale = newScale
 
-	if statsName == "AreaImage":
-		var newScale = Vector2(value, value)
-		$Area2D/Sprite2D3.scale = newScale
+	if statsName == "ParticleLifetime":
+		$Area2D/CPUParticles2D.lifetime = value
+
+	if statsName == "ParticleIV":
+		$Area2D/CPUParticles2D.initial_velocity_min = value
+		$Area2D/CPUParticles2D.initial_velocity_max = value
 
 
 func _on_timer_timeout():
@@ -98,11 +102,13 @@ func _on_timer_timeout():
 
 
 func _on_mouse_entered():
-	$Sprite2D2.modulate = Color(1, 1, 1, 1)
+	# Make highlight
+	pass
 
 
 func _on_mouse_exited():
-	$Sprite2D2.modulate = Color(0, 0, 0, 1)
+	# Remove highlight
+	pass
 
 
 func _on_input_event(_viewport, event, _shape_idx):
