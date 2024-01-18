@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3nphyd1hfcr"]
+
+[ext_resource type="Script" path="res://scripts/counters.gd" id="1_hu5jm"]
+
+[node name="Counters" type="HBoxContainer"]
+theme_override_constants/separation = 40
+script = ExtResource("1_hu5jm")
+
+[node name="Temporary" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextLabel" type="Label" parent="Temporary"]
+layout_mode = 2
+text = "Temporáriamente convertidos:"
+
+[node name="ValueLabel" type="Label" parent="Temporary"]
+layout_mode = 2
+text = "0
+"
+
+[node name="Permanent" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextLabel" type="Label" parent="Permanent"]
+layout_mode = 2
+text = "Permanentemente convertidos:"
+
+[node name="ValueLabel" type="Label" parent="Permanent"]
+layout_mode = 2
+text = "0"

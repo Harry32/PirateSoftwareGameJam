@@ -1,0 +1,226 @@
+[gd_scene load_steps=32 format=3 uid="uid://o33urjc3n8t4"]
+
+[ext_resource type="Texture2D" uid="uid://kj3c5s8brcj3" path="res://graphics/person_gradient_texture.tres" id="1_4g3up"]
+[ext_resource type="Script" path="res://scripts/person.gd" id="1_xvrq1"]
+[ext_resource type="Texture2D" uid="uid://d2vp1078mv7su" path="res://graphics/particles/symbol_01.png" id="2_h6mjv"]
+[ext_resource type="Texture2D" uid="uid://baa224f6m2vhu" path="res://graphics/people/ph - walking 1.png" id="4_1xfo7"]
+[ext_resource type="Texture2D" uid="uid://dfjiab2i5xtw5" path="res://graphics/people/ph - gd 3.png" id="4_m44ik"]
+[ext_resource type="PackedScene" uid="uid://dakwgp04xy1km" path="res://scenes/control/state_machine.tscn" id="4_p4c0u"]
+[ext_resource type="Texture2D" uid="uid://cfmhfox20cdmb" path="res://graphics/people/ph - idle 2.png" id="4_yd6vf"]
+[ext_resource type="Texture2D" uid="uid://bub6ceaucq4xl" path="res://graphics/people/ph - idle 1.png" id="5_642la"]
+[ext_resource type="Texture2D" uid="uid://csjtfg5leo344" path="res://graphics/people/ph - walking 2.png" id="7_ht21v"]
+[ext_resource type="Texture2D" uid="uid://6i5putw31vfj" path="res://graphics/people/ph - gd 1.png" id="9_3wad4"]
+[ext_resource type="Texture2D" uid="uid://dvcdxu7bs5yi7" path="res://graphics/people/ph - gd 2.png" id="10_8sfov"]
+[ext_resource type="Script" path="res://scripts/control/idle.gd" id="12_8ur6y"]
+[ext_resource type="Script" path="res://scripts/control/walking.gd" id="13_1pe2b"]
+[ext_resource type="Script" path="res://scripts/control/action.gd" id="14_s7jlf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vtq0c"]
+
+[sub_resource type="Animation" id="Animation_sbvn1"]
+resource_name = "Action"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("9_3wad4"), ExtResource("10_8sfov"), ExtResource("4_m44ik")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"cause_effect"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_pj00o"]
+resource_name = "Walking"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("4_1xfo7"), ExtResource("7_ht21v")]
+}
+
+[sub_resource type="Animation" id="Animation_am212"]
+resource_name = "Idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("5_642la"), ExtResource("4_yd6vf")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dttf4"]
+_data = {
+"Action": SubResource("Animation_sbvn1"),
+"Idle": SubResource("Animation_am212"),
+"Walking": SubResource("Animation_pj00o")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0bamr"]
+animation = &"Action"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q6oyi"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cviro"]
+animation = &"Walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m0n4u"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o0u3b"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cph3q"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n16tn"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n4ldp"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ak7as"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6t351"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8qymb"]
+states/Action/node = SubResource("AnimationNodeAnimation_0bamr")
+states/Action/position = Vector2(490, -59)
+states/Idle/node = SubResource("AnimationNodeAnimation_q6oyi")
+states/Idle/position = Vector2(357, 100)
+states/Walking/node = SubResource("AnimationNodeAnimation_cviro")
+states/Walking/position = Vector2(637, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_m0n4u"), "Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_o0u3b"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_cph3q"), "Idle", "Action", SubResource("AnimationNodeStateMachineTransition_n16tn"), "Walking", "Action", SubResource("AnimationNodeStateMachineTransition_n4ldp"), "Action", "Idle", SubResource("AnimationNodeStateMachineTransition_ak7as"), "Action", "Walking", SubResource("AnimationNodeStateMachineTransition_6t351")]
+graph_offset = Vector2(-54, -95)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ok6tu"]
+size = Vector2(32, 107)
+
+[node name="Person" type="CharacterBody2D"]
+collision_mask = 0
+input_pickable = true
+script = ExtResource("1_xvrq1")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+scale = Vector2(15, 15)
+shape = SubResource("CircleShape2D_vtq0c")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Area2D"]
+emitting = false
+amount = 100
+lifetime = 0.9
+one_shot = true
+explosiveness = 0.7
+randomness = 0.5
+lifetime_randomness = 0.4
+texture = ExtResource("2_h6mjv")
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+color = Color(0.937255, 0.486275, 0.501961, 1)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.531, 0.72)
+texture = ExtResource("1_4g3up")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_642la")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dttf4")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dttf4")
+}
+tree_root = SubResource("AnimationNodeStateMachine_8qymb")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_ok6tu")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="EffectTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="ActionTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = -29.0
+offset_top = -55.0
+offset_right = 30.0
+offset_bottom = -32.0
+text = "Normal"
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("character", "animationTree", "currentState") instance=ExtResource("4_p4c0u")]
+character = NodePath("..")
+animationTree = NodePath("../AnimationTree")
+currentState = NodePath("Walking")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("12_8ur6y")
+
+[node name="Walking" type="Node" parent="StateMachine"]
+script = ExtResource("13_1pe2b")
+
+[node name="Action" type="Node" parent="StateMachine"]
+script = ExtResource("14_s7jlf")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="animation_finished" from="AnimationTree" to="StateMachine/Action" method="_on_animation_tree_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="EffectTimer" to="." method="_on_effect_timer_timeout"]
+[connection signal="timeout" from="ActionTimer" to="." method="_on_action_timer_timeout"]
