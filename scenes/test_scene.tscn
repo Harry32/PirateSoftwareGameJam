@@ -1,18 +1,23 @@
 [gd_scene load_steps=6 format=3 uid="uid://cvqcmw6kxv1lo"]
 
 [ext_resource type="Texture2D" uid="uid://bfeh0t2643udc" path="res://graphics/gradient_texture.tres" id="1_ldara"]
-[ext_resource type="PackedScene" uid="uid://o33urjc3n8t4" path="res://scenes/person.tscn" id="2_a3ao7"]
 [ext_resource type="PackedScene" uid="uid://mpyxy4gv0up5" path="res://scenes/people_spawner.tscn" id="3_e26fd"]
 [ext_resource type="PackedScene" uid="uid://kl5xdrsakx2" path="res://scenes/ui.tscn" id="3_qsgc8"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_r2yuu"]
 
+[sub_resource type="PlaceholderMesh" id="PlaceholderMesh_1ya10"]
+aabb = AABB(-6000, -6000, 0, 12000, 12000, 0)
+
 [node name="TestScene" type="Node2D"]
-metadata/_edit_horizontal_guides_ = [-3535.0, 4672.0]
-metadata/_edit_vertical_guides_ = [-5753.0, 7690.0]
+metadata/_edit_horizontal_guides_ = [-6000.0, 6000.0]
+metadata/_edit_vertical_guides_ = [-6000.0, 6000.0]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+mesh = SubResource("PlaceholderMesh_1ya10")
 
 [node name="GradientTexture" type="Sprite2D" parent="."]
-position = Vector2(973.001, 557)
-scale = Vector2(210, 128.156)
+position = Vector2(-5.75781e-05, 0.000247955)
+scale = Vector2(187.469, 187.469)
 texture = ExtResource("1_ldara")
 
 [node name="UI" parent="." instance=ExtResource("3_qsgc8")]
@@ -22,9 +27,6 @@ position = Vector2(960, 540)
 position_smoothing_enabled = true
 script = ExtResource("3_r2yuu")
 
-[node name="PeopleSpawner" parent="." instance=ExtResource("3_e26fd")]
-x1 = 1920.0
-y1 = 1080.0
-
-[node name="Person" parent="." instance=ExtResource("2_a3ao7")]
-position = Vector2(1036, 518)
+[node name="PeopleSpawner" parent="." node_paths=PackedStringArray("meshArea") instance=ExtResource("3_e26fd")]
+quantity = 200
+meshArea = NodePath("../MeshInstance2D")

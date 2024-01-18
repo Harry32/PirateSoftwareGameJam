@@ -7,9 +7,15 @@ var rng = RandomNumberGenerator.new()
 var effect: String = "None"
 var executeAction: bool = false
 var closePeople: Array[CharacterBody2D]
+var direction: Vector2
+var walkableX0: float
+var walkableX1: float
+var walkableY0: float
+var walkableY1: float
 
 
 func _ready():
+	direction = Vector2.ZERO
 	targetPosition = position
 	$Timer.wait_time = rng.randf_range(0, 5)
 	$Timer.start()
@@ -23,11 +29,18 @@ func _physics_process(_delta):
 	if effect == "None":
 		$Label.text = "Normal"
 
+	update_facing_direction()
 	move_and_slide()
 
+
+func update_facing_direction():
+	if direction != Vector2.ZERO:
+		$Sprite2D.flip_h = velocity.x < 0
+
+
 func get_new_target_position():
-	var newX = rng.randf_range(0, 1920)
-	var newY = rng.randf_range(0, 1080)
+	var newX = rng.randf_range(walkableX0, walkableX1)
+	var newY = rng.randf_range(walkableY0, walkableY1)
 
 	targetPosition = Vector2(newX, newY)
 

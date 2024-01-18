@@ -1,9 +1,10 @@
-[gd_scene load_steps=32 format=3 uid="uid://o33urjc3n8t4"]
+[gd_scene load_steps=33 format=3 uid="uid://o33urjc3n8t4"]
 
 [ext_resource type="Texture2D" uid="uid://kj3c5s8brcj3" path="res://graphics/person_gradient_texture.tres" id="1_4g3up"]
 [ext_resource type="Script" path="res://scripts/person.gd" id="1_xvrq1"]
 [ext_resource type="Texture2D" uid="uid://d2vp1078mv7su" path="res://graphics/particles/symbol_01.png" id="2_h6mjv"]
 [ext_resource type="Texture2D" uid="uid://baa224f6m2vhu" path="res://graphics/people/ph - walking 1.png" id="4_1xfo7"]
+[ext_resource type="Texture2D" uid="uid://5qfvx7behudn" path="res://graphics/people/300x300.png" id="4_7kqmu"]
 [ext_resource type="Texture2D" uid="uid://dfjiab2i5xtw5" path="res://graphics/people/ph - gd 3.png" id="4_m44ik"]
 [ext_resource type="PackedScene" uid="uid://dakwgp04xy1km" path="res://scenes/control/state_machine.tscn" id="4_p4c0u"]
 [ext_resource type="Texture2D" uid="uid://cfmhfox20cdmb" path="res://graphics/people/ph - idle 2.png" id="4_yd6vf"]
@@ -124,7 +125,7 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-54, -95)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ok6tu"]
-size = Vector2(32, 107)
+size = Vector2(49, 104)
 
 [node name="Person" type="CharacterBody2D"]
 collision_mask = 0
@@ -166,7 +167,7 @@ texture = ExtResource("1_4g3up")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_yd6vf")
+texture = ExtResource("4_7kqmu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -174,6 +175,7 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+active = false
 libraries = {
 "": SubResource("AnimationLibrary_dttf4")
 }
@@ -181,7 +183,7 @@ tree_root = SubResource("AnimationNodeStateMachine_8qymb")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4.5)
+position = Vector2(-8.5, 7)
 shape = SubResource("RectangleShape2D_ok6tu")
 
 [node name="Timer" type="Timer" parent="."]

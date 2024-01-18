@@ -10,7 +10,7 @@ func enter():
 
 
 func state_physics_process(_delta: float):
-	var direction = Vector2.ZERO
+	targetCharacter.direction = Vector2.ZERO
 	var velocity = targetCharacter.velocity
 	var speed = targetCharacter.speed
 	
@@ -25,10 +25,10 @@ func state_physics_process(_delta: float):
 			exit(idleState)
 
 		if targetCharacter.targetPosition != targetCharacter.position:
-			direction = targetCharacter.position.direction_to(targetCharacter.targetPosition)
+			targetCharacter.direction = targetCharacter.position.direction_to(targetCharacter.targetPosition)
 
-		if direction:
-			velocity = direction * speed
+		if targetCharacter.direction:
+			velocity = targetCharacter.direction * speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
 			velocity.y = move_toward(velocity.y, 0, speed)
