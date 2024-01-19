@@ -36,13 +36,18 @@ func _physics_process(_delta):
 
 func update_facing_direction():
 	if direction != Vector2.ZERO:
-		$Sprite2D.flip_h = velocity.x < 0
+		$PersonSprite.flip_h = velocity.x < 0
 
 
 func get_new_target_position():
-	var newX = rng.randf_range(walkableX0, walkableX1)
-	var newY = rng.randf_range(walkableY0, walkableY1)
-
+	#var newX = rng.randf_range(walkableX0, walkableX1)
+	#var newY = rng.randf_range(walkableY0, walkableY1)
+	var v1 = rng.randfn(0, 300)
+	var v2 = rng.randfn(0, 300)
+	
+	var newX = clamp(position.x + v1, -6000, 6000)
+	var newY = clamp(position.y + v2, -6000, 6000)
+	
 	targetPosition = Vector2(newX, newY)
 
 func add_effect(self_effect: bool):
@@ -65,7 +70,7 @@ func add_effect(self_effect: bool):
 
 
 func cause_effect():
-	$Area2D/CPUParticles2D.emitting = true
+	$EffectArea/CPUParticles2D.emitting = true
 	
 	for person in closePeople:
 		person.add_effect(false)
@@ -85,15 +90,15 @@ func activate_effect():
 func update_stats(statsName: String, value: float):
 	if statsName == "Area":
 		var newScale = Vector2(value, value)
-		if $Area2D/CollisionShape2D.scale != newScale:
-			$Area2D/CollisionShape2D.scale = newScale
+		if $EffectArea/CollisionShape2D.scale != newScale:
+			$EffectArea/CollisionShape2D.scale = newScale
 
 	if statsName == "ParticleLifetime":
-		$Area2D/CPUParticles2D.lifetime = value
+		$EffectArea/CPUParticles2D.lifetime = value
 
 	if statsName == "ParticleIV":
-		$Area2D/CPUParticles2D.initial_velocity_min = value
-		$Area2D/CPUParticles2D.initial_velocity_max = value
+		$EffectArea/CPUParticles2D.initial_velocity_min = value
+		$EffectArea/CPUParticles2D.initial_velocity_max = value
 
 
 func _on_timer_timeout():
@@ -120,7 +125,7 @@ func _on_input_event(_viewport, event, _shape_idx):
 
 func _on_effect_timer_timeout():
 	effect = "None"
-	$Sprite2D.modulate = Color(1, 1, 1, 1)
+	$PersonSprite.modulate = Color(1, 1, 1, 1)
 	$ActionTimer.stop()
 	ProgressInformation.add_counter("Temporary", -1)
 
