@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var aaa: Color = Color(0.1882, 0.1451, 0.0667, 1)
+@export var bbb: Color = Color(0.749, 0.6078, 0.3765, 1)
 
 var speed = 150.0
 var targetPosition: Vector2
@@ -8,6 +10,7 @@ var effect: String = "None"
 var executeAction: bool = false
 var closePeople: Array[CharacterBody2D]
 var direction: Vector2
+var personColor: Color
 var walkableX0: float
 var walkableX1: float
 var walkableY0: float
@@ -17,7 +20,11 @@ var walkableY1: float
 func _ready():
 	direction = Vector2.ZERO
 	targetPosition = position
+	
+	$PersonSprite.material.set_shader_parameter("newColor", personColor)
+	
 	StatsInformation.connect("change_stats",update_stats)
+	
 	$Timer.wait_time = rng.randf_range(0, 5)
 	$Timer.start()
 

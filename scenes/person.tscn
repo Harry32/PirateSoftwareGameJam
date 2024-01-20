@@ -1,12 +1,19 @@
-[gd_scene load_steps=30 format=3 uid="uid://o33urjc3n8t4"]
+[gd_scene load_steps=32 format=3 uid="uid://o33urjc3n8t4"]
 
 [ext_resource type="Script" path="res://scripts/person.gd" id="1_xvrq1"]
+[ext_resource type="Shader" path="res://shaders/color_changer.gdshader" id="2_0ku03"]
 [ext_resource type="Texture2D" uid="uid://qk8hsfq1x4hp" path="res://graphics/people/Personagem.png" id="2_4a1ns"]
 [ext_resource type="Texture2D" uid="uid://d2vp1078mv7su" path="res://graphics/particles/symbol_01.png" id="2_h6mjv"]
 [ext_resource type="PackedScene" uid="uid://dakwgp04xy1km" path="res://scenes/control/state_machine.tscn" id="4_p4c0u"]
 [ext_resource type="Script" path="res://scripts/control/idle.gd" id="12_8ur6y"]
 [ext_resource type="Script" path="res://scripts/control/walking.gd" id="13_1pe2b"]
 [ext_resource type="Script" path="res://scripts/control/action.gd" id="14_s7jlf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smd44"]
+resource_local_to_scene = true
+shader = ExtResource("2_0ku03")
+shader_parameter/newColor = Color(0.74902, 0.607843, 0.376471, 1)
+shader_parameter/value = null
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vtq0c"]
 
@@ -120,6 +127,21 @@ tracks/1/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_7eity"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PersonSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_pj00o"]
 resource_name = "Walking"
 loop_mode = 1
@@ -147,21 +169,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_7eity"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PersonSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dttf4"]
@@ -217,6 +224,7 @@ input_pickable = true
 script = ExtResource("1_xvrq1")
 
 [node name="PersonSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_smd44")
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_4a1ns")
 flip_h = true
@@ -264,6 +272,7 @@ tree_root = SubResource("AnimationNodeStateMachine_8qymb")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_ok6tu")
 
