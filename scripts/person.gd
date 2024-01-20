@@ -36,7 +36,7 @@ func _physics_process(_delta):
 
 func update_facing_direction():
 	if direction != Vector2.ZERO:
-		$PersonSprite.flip_h = velocity.x < 0
+		$PersonSprite.flip_h = velocity.x > 0
 
 
 func get_new_target_position():
@@ -66,17 +66,17 @@ func add_effect(self_effect: bool):
 		if value < temp:
 			effect = "None"
 
-		activate_effect()
+		activate_effect(self_effect)
 
 
 func cause_effect():
-	$EffectArea/CPUParticles2D.emitting = true
+	$EffectArea/ActionParticles.emitting = true
 	
 	for person in closePeople:
 		person.add_effect(false)
 
 
-func activate_effect():
+func activate_effect(self_effect: bool):
 	if effect == "Permanent":
 		ProgressInformation.add_counter("Permanent")
 	
@@ -86,6 +86,9 @@ func activate_effect():
 	
 	if effect != "None":
 		$ActionTimer.start(rng.randf_range(1, 9))
+		
+		if not self_effect:
+			$EffectArea/EffectParticles.emitting = true
 
 func update_stats(statsName: String, value: float):
 	if statsName == "Area":
@@ -94,11 +97,11 @@ func update_stats(statsName: String, value: float):
 			$EffectArea/CollisionShape2D.scale = newScale
 
 	if statsName == "ParticleLifetime":
-		$EffectArea/CPUParticles2D.lifetime = value
+		$EffectArea/ActionParticles.lifetime = value
 
 	if statsName == "ParticleIV":
-		$EffectArea/CPUParticles2D.initial_velocity_min = value
-		$EffectArea/CPUParticles2D.initial_velocity_max = value
+		$EffectArea/ActionParticles.initial_velocity_min = value
+		$EffectArea/ActionParticles.initial_velocity_max = value
 
 
 func _on_timer_timeout():
