@@ -13,7 +13,9 @@
 resource_local_to_scene = true
 shader = ExtResource("2_0ku03")
 shader_parameter/newColor = Color(0.74902, 0.607843, 0.376471, 1)
-shader_parameter/value = null
+shader_parameter/borderColor = Color(1, 1, 1, 1)
+shader_parameter/width = 3.0
+shader_parameter/showBorder = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vtq0c"]
 

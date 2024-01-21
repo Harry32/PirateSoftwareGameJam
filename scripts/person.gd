@@ -117,13 +117,11 @@ func _on_timer_timeout():
 
 
 func _on_mouse_entered():
-	# Make highlight
-	pass
+	$PersonSprite.material.set_shader_parameter("showBorder", true)
 
 
 func _on_mouse_exited():
-	# Remove highlight
-	pass
+	$PersonSprite.material.set_shader_parameter("showBorder", false)
 
 
 func _on_input_event(_viewport, event, _shape_idx):
