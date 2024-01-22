@@ -2,7 +2,7 @@ extends Node
 
 
 @export var quantity: int = 15
-@export var meshArea: MeshInstance2D
+@export var meshAreas: Array[MeshInstance2D]
 
 
 var rng = RandomNumberGenerator.new()
@@ -16,12 +16,14 @@ const PERSON = preload("res://scenes/person.tscn")
 
 
 func _ready():
-	var x0 = meshArea.mesh.get_aabb().position.x
-	var y0 = meshArea.mesh.get_aabb().position.y
-	var x1 = x0 + meshArea.mesh.get_aabb().size.x
-	var y1 = y0 + meshArea.mesh.get_aabb().size.y
-	
 	for i in range(quantity):
+		var meshArea = meshAreas[rng.randi_range(0, meshAreas.size()-1)]
+	
+		var x0 = meshArea.mesh.get_aabb().position.x
+		var y0 = meshArea.mesh.get_aabb().position.y
+		var x1 = x0 + meshArea.mesh.get_aabb().size.x
+		var y1 = y0 + meshArea.mesh.get_aabb().size.y
+		
 		var x = rng.randf_range(x0, x1)
 		var y = rng.randf_range(y0, y1)
 
@@ -29,10 +31,8 @@ func _ready():
 		
 		personInstance.position = Vector2(x, y)
 		personInstance.personColor = pick_person_color()
-		personInstance.walkableX0 = x0
-		personInstance.walkableX1 = x1
-		personInstance.walkableY0 = y0
-		personInstance.walkableY1 = y1
+		
+		personInstance.meshAreas = meshAreas
 
 		$"..".call_deferred("add_child", personInstance)
 		ProgressInformation.add_counter("TotalPeople")

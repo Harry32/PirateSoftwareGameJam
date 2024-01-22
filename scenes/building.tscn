@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkmvok2k38tf4"]
+
+[ext_resource type="Texture2D" uid="uid://kj3c5s8brcj3" path="res://graphics/person_gradient_texture.tres" id="1_67xx6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5m6q2"]
+size = Vector2(5000, 4000)
+
+[node name="Building" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.588235, 0.929412, 1)
+position = Vector2(-0.000148773, 0)
+scale = Vector2(78.125, 62.5)
+texture = ExtResource("1_67xx6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5m6q2")

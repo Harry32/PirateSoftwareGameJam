@@ -298,7 +298,7 @@ text = "Normal"
 [node name="StateMachine" parent="." node_paths=PackedStringArray("character", "animationTree", "currentState") instance=ExtResource("4_p4c0u")]
 character = NodePath("..")
 animationTree = NodePath("../AnimationTree")
-currentState = NodePath("Walking")
+currentState = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource("12_8ur6y")
@@ -308,6 +308,8 @@ script = ExtResource("13_1pe2b")
 
 [node name="Action" type="Node" parent="StateMachine"]
 script = ExtResource("14_s7jlf")
+
+[node name="PersonNavigationAgent" type="NavigationAgent2D" parent="."]
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

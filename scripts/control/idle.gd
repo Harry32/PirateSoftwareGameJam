@@ -3,6 +3,7 @@ extends State
 
 @onready var walkingState: State = $"../Walking"
 @onready var actionState: State = $"../Action"
+@onready var personNavigationAgent = $"../../PersonNavigationAgent"
 
 
 func enter():
@@ -10,7 +11,7 @@ func enter():
 
 
 func state_physics_process(_delta: float):
-	if targetCharacter.targetPosition != targetCharacter.position:
+	if personNavigationAgent.target_position != targetCharacter.position:
 		exit(walkingState)
 
 	if targetCharacter.executeAction:

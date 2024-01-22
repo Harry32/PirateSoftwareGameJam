@@ -4,22 +4,18 @@ extends CharacterBody2D
 @export var bbb: Color = Color(0.749, 0.6078, 0.3765, 1)
 
 var speed = 150.0
-var targetPosition: Vector2
 var rng = RandomNumberGenerator.new()
 var effect: String = "None"
 var executeAction: bool = false
 var closePeople: Array[CharacterBody2D]
 var direction: Vector2
 var personColor: Color
-var walkableX0: float
-var walkableX1: float
-var walkableY0: float
-var walkableY1: float
+var meshAreas: Array[MeshInstance2D]
 
 
 func _ready():
 	direction = Vector2.ZERO
-	targetPosition = position
+	$PersonNavigationAgent.target_position = position
 	
 	$PersonSprite.material.set_shader_parameter("newColor", personColor)
 	
@@ -49,13 +45,23 @@ func update_facing_direction():
 func get_new_target_position():
 	#var newX = rng.randf_range(walkableX0, walkableX1)
 	#var newY = rng.randf_range(walkableY0, walkableY1)
-	var v1 = rng.randfn(0, 300)
-	var v2 = rng.randfn(0, 300)
+	#var v1 = rng.randfn(0, 300)
+	#var v2 = rng.randfn(0, 300)
+	#
+	#var newX = clamp(position.x + v1, -6000, 6000)
+	#var newY = clamp(position.y + v2, -6000, 6000)
 	
-	var newX = clamp(position.x + v1, -6000, 6000)
-	var newY = clamp(position.y + v2, -6000, 6000)
+	var meshArea = meshAreas[rng.randi_range(0, meshAreas.size()-1)]
 	
-	targetPosition = Vector2(newX, newY)
+	var x0 = meshArea.mesh.get_aabb().position.x
+	var y0 = meshArea.mesh.get_aabb().position.y
+	var x1 = x0 + meshArea.mesh.get_aabb().size.x
+	var y1 = y0 + meshArea.mesh.get_aabb().size.y
+	
+	var newX = rng.randf_range(x0, x1)
+	var newY = rng.randf_range(y0, y1)
+	
+	$PersonNavigationAgent.target_position = Vector2(newX, newY)
 
 func add_effect(self_effect: bool):
 	var perm = 90
@@ -113,7 +119,7 @@ func update_stats(statsName: String, value: float):
 
 func _on_timer_timeout():
 	get_new_target_position()
-	$Timer.start(rng.randf_range(0, 5))
+	#$Timer.start(rng.randf_range(0, 5))
 
 
 func _on_mouse_entered():

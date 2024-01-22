@@ -1,18 +1,44 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvqcmw6kxv1lo"]
+[gd_scene load_steps=12 format=3 uid="uid://cvqcmw6kxv1lo"]
 
 [ext_resource type="Texture2D" uid="uid://bfeh0t2643udc" path="res://graphics/gradient_texture.tres" id="1_ldara"]
 [ext_resource type="PackedScene" uid="uid://mpyxy4gv0up5" path="res://scenes/people_spawner.tscn" id="3_e26fd"]
 [ext_resource type="PackedScene" uid="uid://kl5xdrsakx2" path="res://scenes/ui.tscn" id="3_qsgc8"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="3_r2yuu"]
+[ext_resource type="PackedScene" uid="uid://bkmvok2k38tf4" path="res://scenes/building.tscn" id="5_g55pp"]
+[ext_resource type="Texture2D" uid="uid://kj3c5s8brcj3" path="res://graphics/person_gradient_texture.tres" id="6_j0x6i"]
 
 [sub_resource type="PlaceholderMesh" id="PlaceholderMesh_1ya10"]
-aabb = AABB(-6000, -6000, 0, 12000, 12000, 0)
+aabb = AABB(-889, -6000, 0, 461, 12000, 0)
+
+[sub_resource type="PlaceholderMesh" id="PlaceholderMesh_16qha"]
+aabb = AABB(4572, -6000, 0, 461, 12000, 0)
+
+[sub_resource type="PlaceholderMesh" id="PlaceholderMesh_cjqvp"]
+aabb = AABB(-6000, -2921, 0, 12000, 461, 0)
+
+[sub_resource type="PlaceholderMesh" id="PlaceholderMesh_5rjvo"]
+aabb = AABB(-6000, 1539, 0, 12000, 461, 0)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dtmcc"]
+vertices = PackedVector2Array(5990, 1982, 5023, 1982, 4582, 1549, 5024, 1549, -879, -2475, -5990, -2474, -5990, -2911, -879, -2911, 4582, -2911, 4582, -5990, 5023, -5990, 5023, -2911, 5990, -2911, 5990, -2474, 5023, -2474, 4582, -2474, 5990, 1549, -438, -2911, -438, -2474, 5023, 5990, 4582, 5990, 4582, 1982, -438, 1549, -438, 1982, -438, 5990, -879, 5990, -879, 1982, -879, 1549, -5990, 1982, -5990, 1549, -438, -5990, -879, -5990)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(11, 12, 13, 14), PackedInt32Array(8, 11, 14, 15), PackedInt32Array(3, 16, 0), PackedInt32Array(14, 3, 2, 15), PackedInt32Array(17, 8, 15, 18, 4), PackedInt32Array(1, 19, 20, 21), PackedInt32Array(2, 1, 21, 22), PackedInt32Array(22, 21, 23), PackedInt32Array(23, 24, 25, 26), PackedInt32Array(22, 23, 26, 27), PackedInt32Array(26, 28, 29, 27), PackedInt32Array(18, 22, 27, 4), PackedInt32Array(17, 4, 7, 30), PackedInt32Array(30, 7, 31)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-889, -6000, -428, -6000, -428, -2921, 4572, -2921, 4572, -6000, 5033, -6000, 5033, -2921, 6000, -2921, 6000, -2464, 5033, -2464, 5034, 1539, 6000, 1539, 6000, 1992, 5033, 1992, 5033, 6000, 4572, 6000, 4572, -2464, -428, -2464, -428, 1539, 4572, 1539, 4572, 1992, -428, 1992, -428, 6000, -889, 6000, -889, 1992, -6000, 1993, -6000, 1539, -889, 1539, -889, -2465, -6000, -2464, -6000, -2921, -889, -2921)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="City" type="Node2D"]
 metadata/_edit_horizontal_guides_ = []
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+[node name="WalkableMesh" type="MeshInstance2D" parent="."]
 mesh = SubResource("PlaceholderMesh_1ya10")
+
+[node name="WalkableMesh2" type="MeshInstance2D" parent="."]
+mesh = SubResource("PlaceholderMesh_16qha")
+
+[node name="WalkableMesh3" type="MeshInstance2D" parent="."]
+mesh = SubResource("PlaceholderMesh_cjqvp")
+
+[node name="WalkableMesh4" type="MeshInstance2D" parent="."]
+mesh = SubResource("PlaceholderMesh_5rjvo")
 
 [node name="GradientTexture" type="Sprite2D" parent="."]
 position = Vector2(-5.75781e-05, 0.000247955)
@@ -26,6 +52,525 @@ position = Vector2(960, 540)
 position_smoothing_enabled = true
 script = ExtResource("3_r2yuu")
 
-[node name="PeopleSpawner" parent="." node_paths=PackedStringArray("meshArea") instance=ExtResource("3_e26fd")]
-quantity = 200
-meshArea = NodePath("../MeshInstance2D")
+[node name="PeopleSpawner" parent="." node_paths=PackedStringArray("meshAreas") instance=ExtResource("3_e26fd")]
+quantity = 500
+meshAreas = [NodePath("../WalkableMesh"), NodePath("../WalkableMesh2"), NodePath("../WalkableMesh3"), NodePath("../WalkableMesh4")]
+
+[node name="GridLayout" type="Node2D" parent="."]
+
+[node name="Building" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(7533, 4000)
+
+[node name="Building3" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(7533, -460)
+
+[node name="Building4" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(7533, -4920)
+
+[node name="Building2" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(2072, 4000)
+
+[node name="Building5" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(2072, -461)
+
+[node name="Building6" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(2072, -4921)
+
+[node name="Building7" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(-2389, 4000)
+
+[node name="Building8" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(-2389, -461)
+
+[node name="Building9" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(-2389, -4921)
+
+[node name="Building10" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(-3677, 4000)
+
+[node name="Building11" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(-3677, -461)
+
+[node name="Building12" parent="GridLayout" instance=ExtResource("5_g55pp")]
+position = Vector2(-3677, -4921)
+
+[node name="Street" type="Node2D" parent="GridLayout"]
+position = Vector2(4800, 4000)
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.500036)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -0.499184)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street4" type="Node2D" parent="GridLayout"]
+position = Vector2(4800, -460)
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street4"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street4"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.500036)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street4"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -0.499184)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street6" type="Node2D" parent="GridLayout"]
+position = Vector2(7032, -2693)
+rotation = 1.5708
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street6"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.233617)
+scale = Vector2(5.83594, 62.4946)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street6"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, 0.540401)
+scale = Vector2(1.32813, 62.5169)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street6"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -0.201712)
+scale = Vector2(1.32813, 62.4937)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street5" type="Node2D" parent="GridLayout"]
+position = Vector2(4800, -4920)
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street5"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.031009)
+scale = Vector2(5.83594, 62.501)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street5"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, 4.08292e-05)
+scale = Vector2(1.32813, 62.5)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street5"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -6.04987e-05)
+scale = Vector2(1.32813, 62.5)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street8" type="Node2D" parent="GridLayout"]
+position = Vector2(-661, 4000)
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street8"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street8"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.500036)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street8"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -0.499184)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street9" type="Node2D" parent="GridLayout"]
+position = Vector2(-661, -460)
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street9"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street9"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.500036)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street9"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -0.499184)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street10" type="Node2D" parent="GridLayout"]
+position = Vector2(-661, -4919)
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street10"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street10"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.500036)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street10"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -0.499184)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street2" type="Node2D" parent="GridLayout"]
+position = Vector2(7032, 1767)
+rotation = 1.5708
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street2"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street2"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.500036)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street2"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -0.499184)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street3" type="Node2D" parent="GridLayout"]
+position = Vector2(2572, 1767)
+rotation = 1.5708
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street3"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street3"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.500036)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street3"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -0.499184)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street7" type="Node2D" parent="GridLayout"]
+position = Vector2(2572, -2693)
+rotation = 1.5708
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street7"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street7"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.946006)
+scale = Vector2(1.32813, 62.4983)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street7"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -1.76201)
+scale = Vector2(1.32813, 62.5239)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street11" type="Node2D" parent="GridLayout"]
+position = Vector2(1571, 1767)
+rotation = 1.5708
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street11"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street11"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.500036)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street11"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -0.499184)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street12" type="Node2D" parent="GridLayout"]
+position = Vector2(1571, -2693)
+rotation = 1.5708
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street12"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, 0.0996137)
+scale = Vector2(5.83594, 62.5051)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street12"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.079571)
+scale = Vector2(1.32813, 62.4975)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street12"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, 0.551979)
+scale = Vector2(1.32813, 62.5172)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street13" type="Node2D" parent="GridLayout"]
+position = Vector2(-2889, 1767)
+rotation = 1.5708
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street13"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street13"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.500036)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street13"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -0.499184)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street14" type="Node2D" parent="GridLayout"]
+position = Vector2(-2889, -2693)
+rotation = 1.5708
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street14"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street14"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.249958)
+scale = Vector2(1.32813, 62.4922)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street14"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, 0.103665)
+scale = Vector2(1.32813, 62.5032)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street15" type="Node2D" parent="GridLayout"]
+position = Vector2(-4177, 1767)
+rotation = 1.5708
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street15"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street15"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.500036)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street15"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, -0.499184)
+scale = Vector2(1.32813, 62.4844)
+texture = ExtResource("6_j0x6i")
+
+[node name="Street16" type="Node2D" parent="GridLayout"]
+position = Vector2(-4177, -2693)
+rotation = 1.5708
+
+[node name="Asfalt" type="Sprite2D" parent="GridLayout/Street16"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(43, -0.531094)
+scale = Vector2(5.83594, 62.4854)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkR" type="Sprite2D" parent="GridLayout/Street16"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(190.5, -0.249958)
+scale = Vector2(1.32813, 62.4922)
+texture = ExtResource("6_j0x6i")
+
+[node name="SideWalkL" type="Sprite2D" parent="GridLayout/Street16"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-185.5, 0.103665)
+scale = Vector2(1.32813, 62.5032)
+texture = ExtResource("6_j0x6i")
+
+[node name="Crossign" type="Sprite2D" parent="GridLayout"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(4802.5, 1769.5)
+scale = Vector2(7.20313, 7.20313)
+texture = ExtResource("6_j0x6i")
+
+[node name="Crossign2" type="Sprite2D" parent="GridLayout"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(4802, -2690)
+scale = Vector2(7.20313, 7.20313)
+texture = ExtResource("6_j0x6i")
+
+[node name="Crossign3" type="Sprite2D" parent="GridLayout"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-658.5, 1769.5)
+scale = Vector2(7.20313, 7.20313)
+texture = ExtResource("6_j0x6i")
+
+[node name="Crossign4" type="Sprite2D" parent="GridLayout"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-658.999, -2690)
+scale = Vector2(7.20313, 7.20313)
+texture = ExtResource("6_j0x6i")
+
+[node name="Corner" type="Node2D" parent="GridLayout"]
+position = Vector2(4802.5, 1769.5)
+
+[node name="CornerTL" type="Sprite2D" parent="GridLayout/Corner"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-188, -188)
+scale = Vector2(1.32813, 1.32813)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerTR" type="Sprite2D" parent="GridLayout/Corner"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(188, -188)
+scale = Vector2(1.32813, 1.32813)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerBL" type="Sprite2D" parent="GridLayout/Corner"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-188, 188)
+scale = Vector2(1.32813, 1.32813)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerBR" type="Sprite2D" parent="GridLayout/Corner"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(188, 188)
+scale = Vector2(1.32813, 1.32813)
+texture = ExtResource("6_j0x6i")
+
+[node name="Corner2" type="Node2D" parent="GridLayout"]
+position = Vector2(4802, -2690)
+
+[node name="CornerTL" type="Sprite2D" parent="GridLayout/Corner2"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-187.75, -188.25)
+scale = Vector2(1.33594, 1.32031)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerTR" type="Sprite2D" parent="GridLayout/Corner2"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(188.25, -188.25)
+scale = Vector2(1.32031, 1.32031)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerBL" type="Sprite2D" parent="GridLayout/Corner2"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-187.75, 187.75)
+scale = Vector2(1.33594, 1.33594)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerBR" type="Sprite2D" parent="GridLayout/Corner2"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(188.25, 187.75)
+scale = Vector2(1.32031, 1.33594)
+texture = ExtResource("6_j0x6i")
+
+[node name="Corner3" type="Node2D" parent="GridLayout"]
+position = Vector2(-658.5, 1769.5)
+
+[node name="CornerTL" type="Sprite2D" parent="GridLayout/Corner3"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-188, -188)
+scale = Vector2(1.32813, 1.32813)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerTR" type="Sprite2D" parent="GridLayout/Corner3"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(188, -188)
+scale = Vector2(1.32813, 1.32813)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerBL" type="Sprite2D" parent="GridLayout/Corner3"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-188, 188)
+scale = Vector2(1.32813, 1.32813)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerBR" type="Sprite2D" parent="GridLayout/Corner3"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(188, 188)
+scale = Vector2(1.32813, 1.32813)
+texture = ExtResource("6_j0x6i")
+
+[node name="Corner4" type="Node2D" parent="GridLayout"]
+position = Vector2(-659, -2690)
+
+[node name="CornerTL" type="Sprite2D" parent="GridLayout/Corner4"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-187.75, -188.25)
+scale = Vector2(1.33594, 1.32031)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerTR" type="Sprite2D" parent="GridLayout/Corner4"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(188.25, -188.25)
+scale = Vector2(1.32031, 1.32031)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerBL" type="Sprite2D" parent="GridLayout/Corner4"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(-187.75, 187.75)
+scale = Vector2(1.33594, 1.33594)
+texture = ExtResource("6_j0x6i")
+
+[node name="CornerBR" type="Sprite2D" parent="GridLayout/Corner4"]
+modulate = Color(0.603922, 0.603922, 0.603922, 1)
+position = Vector2(188.25, 187.75)
+scale = Vector2(1.32031, 1.33594)
+texture = ExtResource("6_j0x6i")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_dtmcc")
