@@ -1,0 +1,184 @@
+[gd_scene load_steps=2 format=3 uid="uid://rwm3lv361lev"]
+
+[ext_resource type="Script" path="res://scripts/ui/stats_menu.gd" id="1_u8k1v"]
+
+[node name="StatsMenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+script = ExtResource("1_u8k1v")
+
+[node name="FlowContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="FlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Statistics
+"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="PeopleContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PeopleLabel" type="Label" parent="CenterContainer/VBoxContainer/PeopleContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "People:"
+
+[node name="PeopleValueLabel" type="Label" parent="CenterContainer/VBoxContainer/PeopleContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="TotalConversionsContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ConversionsLabel" type="Label" parent="CenterContainer/VBoxContainer/TotalConversionsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Total conversions:"
+
+[node name="ConversionsValueLabel" type="Label" parent="CenterContainer/VBoxContainer/TotalConversionsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="TemporaryContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TemporaryLabel" type="Label" parent="CenterContainer/VBoxContainer/TemporaryContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Temporary conversions:"
+
+[node name="TemporaryValueLabel" type="Label" parent="CenterContainer/VBoxContainer/TemporaryContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0
+"
+
+[node name="PermanentContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PermanentLabel" type="Label" parent="CenterContainer/VBoxContainer/PermanentContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Permanent coversions:"
+
+[node name="PermanentValueLabel" type="Label" parent="CenterContainer/VBoxContainer/PermanentContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="UpgradesContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="UpgradesLabel" type="Label" parent="CenterContainer/VBoxContainer/UpgradesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Upgrades bought:"
+
+[node name="UpgradesValueLabel" type="Label" parent="CenterContainer/VBoxContainer/UpgradesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="ClickUpgradeContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ClickUpgradeLabel" type="Label" parent="CenterContainer/VBoxContainer/ClickUpgradeContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "Click upgrade rate:"
+
+[node name="ClickUpgradeValueLabel" type="Label" parent="CenterContainer/VBoxContainer/ClickUpgradeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="ActionUpgradeContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ActionUpgradeLabel" type="Label" parent="CenterContainer/VBoxContainer/ActionUpgradeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Action upgrade rate:"
+
+[node name="ActionUpgradeValueLabel" type="Label" parent="CenterContainer/VBoxContainer/ActionUpgradeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="AreaUpgradeContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AreaUpgradeLabel" type="Label" parent="CenterContainer/VBoxContainer/AreaUpgradeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Area upgrade Rate:"
+
+[node name="AreaUpgradeValueLabel" type="Label" parent="CenterContainer/VBoxContainer/AreaUpgradeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="PointsContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PointsLabel" type="Label" parent="CenterContainer/VBoxContainer/PointsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Points:"
+
+[node name="PointsValueLabel" type="Label" parent="CenterContainer/VBoxContainer/PointsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="TotalPointsContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TotalPointsLabel" type="Label" parent="CenterContainer/VBoxContainer/TotalPointsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "Total Points:"
+
+[node name="TotalPointsValueLabel" type="Label" parent="CenterContainer/VBoxContainer/TotalPointsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"

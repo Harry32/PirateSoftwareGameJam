@@ -51,15 +51,24 @@ func get_new_target_position():
 	#var newX = clamp(position.x + v1, -6000, 6000)
 	#var newY = clamp(position.y + v2, -6000, 6000)
 	
-	var meshArea = meshAreas[rng.randi_range(0, meshAreas.size()-1)]
+	var selectedArea = rng.randi_range(0, meshAreas.size()-1)
+	var selectedRegion = rng.randi_range(1, 5)
+	var meshArea = meshAreas[selectedArea]
 	
 	var x0 = meshArea.mesh.get_aabb().position.x
 	var y0 = meshArea.mesh.get_aabb().position.y
 	var x1 = x0 + meshArea.mesh.get_aabb().size.x
 	var y1 = y0 + meshArea.mesh.get_aabb().size.y
 	
-	var newX = rng.randf_range(x0, x1)
-	var newY = rng.randf_range(y0, y1)
+	var newX: float
+	var newY: float
+	
+	if selectedArea <=1:
+		newX = rng.randf_range(x0, x1)
+		newY = rng.randf_range((y0/5) * selectedRegion, (y1/5) * selectedRegion)
+	else:
+		newX = rng.randf_range((x0/5) * selectedRegion, (x1/5) * selectedRegion)
+		newY = rng.randf_range(y0, y1)
 	
 	$PersonNavigationAgent.target_position = Vector2(newX, newY)
 

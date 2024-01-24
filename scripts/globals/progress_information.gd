@@ -5,8 +5,10 @@ var counters = {
 	"TotalPeople": 0,
 	"Temporary": 0,
 	"Permanent": 0,
+	"Upgrades": 0,
 	"Total": 0,
-	"Points": 0
+	"Points": 0,
+	"TotalPoints": 0,
  }
 
 

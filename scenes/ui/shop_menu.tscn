@@ -1,0 +1,167 @@
+[gd_scene load_steps=2 format=3 uid="uid://bngv66ge3xtpq"]
+
+[ext_resource type="Script" path="res://scripts/ui/shop_menu.gd" id="1_06aoi"]
+
+[node name="ShopMenu" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06aoi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Shop"
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+
+[node name="PointsContainer" type="HBoxContainer" parent="MarginContainer3"]
+layout_mode = 2
+
+[node name="PointTextLabel" type="Label" parent="MarginContainer3/PointsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Pontos:"
+
+[node name="PointValueLabel" type="Label" parent="MarginContainer3/PointsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "0"
+
+[node name="MarginContainer4" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="MarginContainer5" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer5"]
+layout_mode = 2
+columns = 3
+
+[node name="ClickContainer" type="VBoxContainer" parent="MarginContainer5/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer5/GridContainer/ClickContainer"]
+layout_mode = 2
+
+[node name="ClickTextLabel" type="Label" parent="MarginContainer5/GridContainer/ClickContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Price:"
+
+[node name="ClickValueLabel" type="Label" parent="MarginContainer5/GridContainer/ClickContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="ClickSufixLabel" type="Label" parent="MarginContainer5/GridContainer/ClickContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "points"
+
+[node name="ClickButton" type="Button" parent="MarginContainer5/GridContainer/ClickContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "Click Upgrade"
+
+[node name="ClickLabel" type="RichTextLabel" parent="MarginContainer5/GridContainer/ClickContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "- 10% Click cooldown"
+fit_content = true
+scroll_active = false
+
+[node name="ActionContainer" type="VBoxContainer" parent="MarginContainer5/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer5/GridContainer/ActionContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ActionTextLabel" type="Label" parent="MarginContainer5/GridContainer/ActionContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Price:"
+
+[node name="ActionValueLabel" type="Label" parent="MarginContainer5/GridContainer/ActionContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="ActionSufixLabel" type="Label" parent="MarginContainer5/GridContainer/ActionContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "points
+"
+
+[node name="ActionButton" type="Button" parent="MarginContainer5/GridContainer/ActionContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Action Upgrade"
+
+[node name="ActionLabel" type="RichTextLabel" parent="MarginContainer5/GridContainer/ActionContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "+ 10% influence time"
+fit_content = true
+scroll_active = false
+
+[node name="AreaContainer" type="VBoxContainer" parent="MarginContainer5/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer5/GridContainer/AreaContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="AreaTextLabel" type="Label" parent="MarginContainer5/GridContainer/AreaContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Price:"
+
+[node name="AreaValueLabel" type="Label" parent="MarginContainer5/GridContainer/AreaContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "0"
+
+[node name="AreaSufixLabel" type="Label" parent="MarginContainer5/GridContainer/AreaContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "points"
+
+[node name="AreaButton" type="Button" parent="MarginContainer5/GridContainer/AreaContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Area Upgrade"
+
+[node name="AreaLabel" type="RichTextLabel" parent="MarginContainer5/GridContainer/AreaContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "+ 10% Action area"
+fit_content = true
+scroll_active = false
+
+[connection signal="pressed" from="MarginContainer5/GridContainer/ClickContainer/ClickButton" to="." method="_on_click_button_pressed"]
+[connection signal="pressed" from="MarginContainer5/GridContainer/ActionContainer/ActionButton" to="." method="_on_action_button_pressed"]
+[connection signal="pressed" from="MarginContainer5/GridContainer/AreaContainer/AreaButton" to="." method="_on_area_button_pressed"]

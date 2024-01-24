@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Node
 
 
 var clickCost: int = 5
@@ -10,12 +10,10 @@ func _ready():
 	%ClickValueLabel.text = str(clickCost)
 	%ActionValueLabel.text = str(actionCost)
 	%AreaValueLabel.text = str(areaCost)
-	%TotalPeopleValueLabel.text = str(ProgressInformation.get_counter("TotalPeople"))
-	%TotalValueLabel.text = str(ProgressInformation.get_counter("Total"))
 	%PointValueLabel.text = str(ProgressInformation.get_counter("Points"))
 
 
-func _process(_delta):
+func _process(delta):
 	%PointValueLabel.text = str(ProgressInformation.get_counter("Points"))
 	
 	if ProgressInformation.get_counter("Points") > clickCost:
@@ -40,7 +38,6 @@ func _on_click_button_pressed():
 	StatsInformation.set_stats("Click", clickCooldown - (clickCooldown*0.1))
 	clickCost *= 2
 	%ClickValueLabel.text = str(clickCost)
-
 
 
 func _on_action_button_pressed():
