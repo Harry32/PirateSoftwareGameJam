@@ -48,7 +48,7 @@ texture = ExtResource("1_ldara")
 [node name="UI" parent="." instance=ExtResource("3_qsgc8")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(960, 540)
+position = Vector2(-658, 1587)
 position_smoothing_enabled = true
 script = ExtResource("3_r2yuu")
 

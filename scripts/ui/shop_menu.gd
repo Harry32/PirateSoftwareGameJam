@@ -13,7 +13,7 @@ func _ready():
 	%PointValueLabel.text = str(ProgressInformation.get_counter("Points"))
 
 
-func _process(delta):
+func _process(_delta):
 	%PointValueLabel.text = str(ProgressInformation.get_counter("Points"))
 	
 	if ProgressInformation.get_counter("Points") > clickCost:

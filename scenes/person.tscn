@@ -1,10 +1,13 @@
-[gd_scene load_steps=32 format=3 uid="uid://o33urjc3n8t4"]
+[gd_scene load_steps=31 format=3 uid="uid://o33urjc3n8t4"]
 
 [ext_resource type="Script" path="res://scripts/person.gd" id="1_xvrq1"]
 [ext_resource type="Shader" path="res://shaders/color_changer.gdshader" id="2_0ku03"]
-[ext_resource type="Texture2D" uid="uid://qk8hsfq1x4hp" path="res://graphics/people/Personagem.png" id="2_4a1ns"]
 [ext_resource type="Texture2D" uid="uid://d2vp1078mv7su" path="res://graphics/particles/symbol_01.png" id="2_h6mjv"]
+[ext_resource type="Texture2D" uid="uid://e7yl0hwlr22p" path="res://graphics/people/Person.png" id="3_nkvey"]
+[ext_resource type="Texture2D" uid="uid://bgacbhb75ple6" path="res://graphics/people/Faces.png" id="4_dv05q"]
 [ext_resource type="PackedScene" uid="uid://dakwgp04xy1km" path="res://scenes/control/state_machine.tscn" id="4_p4c0u"]
+[ext_resource type="Texture2D" uid="uid://bsdc80nrks0d0" path="res://graphics/people/Hair.png" id="5_0l0pt"]
+[ext_resource type="PackedScene" uid="uid://dij47tttxg8vk" path="res://scenes/emote.tscn" id="6_7ykx4"]
 [ext_resource type="Script" path="res://scripts/control/idle.gd" id="12_8ur6y"]
 [ext_resource type="Script" path="res://scripts/control/walking.gd" id="13_1pe2b"]
 [ext_resource type="Script" path="res://scripts/control/action.gd" id="14_s7jlf"]
@@ -19,49 +22,10 @@ shader_parameter/showBorder = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vtq0c"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vmftn"]
-lifetime_randomness = 0.4
-particle_flag_disable_z = true
-emission_shape = 1
-emission_sphere_radius = 1.0
-direction = Vector3(0, 0, 0)
-spread = 180.0
-initial_velocity_min = 150.0
-initial_velocity_max = 150.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.1
-scale_max = 0.3
-color = Color(0.937255, 0.486275, 0.501961, 1)
-
-[sub_resource type="Curve" id="Curve_t7s8j"]
-_data = [Vector2(0, 0), 0.0, 0.334719, 0, 0, Vector2(1, 1), 4.24615, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_n3ry0"]
-width = 1080
-curve = SubResource("Curve_t7s8j")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p1x72"]
-particle_flag_disable_z = true
-emission_shape_scale = Vector3(25, 1, 1)
-emission_shape = 3
-emission_box_extents = Vector3(1, 1, 1)
-direction = Vector3(0, -1, 0)
-initial_velocity_min = 150.0
-initial_velocity_max = 150.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.1
-scale_max = 0.3
-color = Color(0.937255, 0.486275, 0.501961, 1)
-turbulence_enabled = true
-turbulence_noise_strength = 10.0
-turbulence_influence_min = 0.302
-turbulence_influence_max = 0.302
-turbulence_influence_over_life = SubResource("CurveTexture_n3ry0")
-
 [sub_resource type="Animation" id="Animation_sbvn1"]
 resource_name = "Action"
 length = 2.0
+step = 0.5
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -95,10 +59,22 @@ tracks/2/path = NodePath("PersonSprite:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 4, 5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PersonSprite:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [2]
 }
 
 [sub_resource type="Animation" id="Animation_am212"]
@@ -127,6 +103,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PersonSprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
 }
 
 [sub_resource type="Animation" id="Animation_7eity"]
@@ -171,6 +159,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PersonSprite:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dttf4"]
@@ -228,9 +228,25 @@ script = ExtResource("1_xvrq1")
 [node name="PersonSprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_smd44")
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("2_4a1ns")
+texture = ExtResource("3_nkvey")
 flip_h = true
 hframes = 4
+vframes = 2
+
+[node name="FaceSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_dv05q")
+flip_h = true
+hframes = 2
+
+[node name="HairSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_0l0pt")
+flip_h = true
+hframes = 2
+
+[node name="Emote" parent="." instance=ExtResource("6_7ykx4")]
+position = Vector2(0, -67)
 
 [node name="EffectArea" type="Area2D" parent="."]
 
@@ -239,32 +255,36 @@ visible = false
 scale = Vector2(15, 15)
 shape = SubResource("CircleShape2D_vtq0c")
 
-[node name="ActionParticles" type="GPUParticles2D" parent="EffectArea"]
-emitting = false
-amount = 100
-process_material = SubResource("ParticleProcessMaterial_vmftn")
-texture = ExtResource("2_h6mjv")
-lifetime = 0.9
-one_shot = true
-explosiveness = 0.7
-randomness = 0.5
-fixed_fps = 0
-
-[node name="EffectParticles" type="GPUParticles2D" parent="EffectArea"]
+[node name="EffectParticles" type="CPUParticles2D" parent="EffectArea"]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 2
 position = Vector2(0, -29)
 emitting = false
 amount = 50
-process_material = SubResource("ParticleProcessMaterial_p1x72")
-texture = ExtResource("2_h6mjv")
 one_shot = true
 explosiveness = 0.29
 randomness = 0.7
+fixed_fps = 30
+draw_order = 1
+texture = ExtResource("2_h6mjv")
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+color = Color(0.937255, 0.486275, 0.501961, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 1
 libraries = {
 "": SubResource("AnimationLibrary_dttf4")
 }
-autoplay = "Idle"
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 libraries = {
@@ -310,6 +330,9 @@ script = ExtResource("13_1pe2b")
 script = ExtResource("14_s7jlf")
 
 [node name="PersonNavigationAgent" type="NavigationAgent2D" parent="."]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 2
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

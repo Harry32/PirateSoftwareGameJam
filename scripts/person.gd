@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var aaa: Color = Color(0.1882, 0.1451, 0.0667, 1)
 @export var bbb: Color = Color(0.749, 0.6078, 0.3765, 1)
 
+
 var speed = 150.0
 var rng = RandomNumberGenerator.new()
 var effect: String = "None"
@@ -16,11 +17,12 @@ var meshAreas: Array[MeshInstance2D]
 func _ready():
 	direction = Vector2.ZERO
 	$PersonNavigationAgent.target_position = position
-	
+
 	$PersonSprite.material.set_shader_parameter("newColor", personColor)
-	
-	StatsInformation.connect("change_stats",update_stats)
-	
+	$HairSprite.frame = rng.randi_range(0, 1)
+
+	StatsInformation.connect("change_stats", update_stats)
+
 	$Timer.wait_time = rng.randf_range(0, 5)
 	$Timer.start()
 
@@ -39,37 +41,32 @@ func _physics_process(_delta):
 
 func update_facing_direction():
 	if direction != Vector2.ZERO:
-		$PersonSprite.flip_h = velocity.x > 0
+		var flip = velocity.x > 0
+		$PersonSprite.flip_h = flip
+		$FaceSprite.flip_h = flip
+		$HairSprite.flip_h = flip
 
 
 func get_new_target_position():
-	#var newX = rng.randf_range(walkableX0, walkableX1)
-	#var newY = rng.randf_range(walkableY0, walkableY1)
-	#var v1 = rng.randfn(0, 300)
-	#var v2 = rng.randfn(0, 300)
-	#
-	#var newX = clamp(position.x + v1, -6000, 6000)
-	#var newY = clamp(position.y + v2, -6000, 6000)
-	
 	var selectedArea = rng.randi_range(0, meshAreas.size()-1)
 	var selectedRegion = rng.randi_range(1, 5)
 	var meshArea = meshAreas[selectedArea]
-	
+
 	var x0 = meshArea.mesh.get_aabb().position.x
 	var y0 = meshArea.mesh.get_aabb().position.y
 	var x1 = x0 + meshArea.mesh.get_aabb().size.x
 	var y1 = y0 + meshArea.mesh.get_aabb().size.y
-	
+
 	var newX: float
 	var newY: float
-	
+
 	if selectedArea <=1:
 		newX = rng.randf_range(x0, x1)
 		newY = rng.randf_range((y0/5) * selectedRegion, (y1/5) * selectedRegion)
 	else:
 		newX = rng.randf_range((x0/5) * selectedRegion, (x1/5) * selectedRegion)
 		newY = rng.randf_range(y0, y1)
-	
+
 	$PersonNavigationAgent.target_position = Vector2(newX, newY)
 
 func add_effect(self_effect: bool):
@@ -92,8 +89,8 @@ func add_effect(self_effect: bool):
 
 
 func cause_effect():
-	$EffectArea/ActionParticles.emitting = true
-	
+	$Emote.show_emote()
+
 	for person in closePeople:
 		person.add_effect(false)
 
@@ -101,14 +98,14 @@ func cause_effect():
 func activate_effect(self_effect: bool):
 	if effect == "Permanent":
 		ProgressInformation.add_counter("Permanent")
-	
+
 	if effect == "Temporary":
 		$EffectTimer.start(StatsInformation.get_stats("Effect"))
 		ProgressInformation.add_counter("Temporary")
-	
+
 	if effect != "None":
 		$ActionTimer.start(rng.randf_range(1, 9))
-		
+
 		if not self_effect:
 			$EffectArea/EffectParticles.emitting = true
 
@@ -128,7 +125,6 @@ func update_stats(statsName: String, value: float):
 
 func _on_timer_timeout():
 	get_new_target_position()
-	#$Timer.start(rng.randf_range(0, 5))
 
 
 func _on_mouse_entered():
